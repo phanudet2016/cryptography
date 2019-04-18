@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function myFunction() {
+            let ciphertext = 'NgHNQqQbeCxIr0apLe8LPg=='
+            let b64Key = 'kbbBCC+P9F4='
+
+            let e64Key = CryptoJS.enc.Base64.parse(b64Key);
+            let keyHex = e64Key.toString(CryptoJS.enc.Hex);
+
+            // var decrypted = CryptoJS.DES.decrypt({
+            //     ciphertext: CryptoJS.enc.Base64.parse(ciphertext)
+            // }, CryptoJS.enc.Hex.parse(keyHex), {
+            //     mode: CryptoJS.mode.ECB,
+            //     padding: CryptoJS.pad.NoPadding
+            // });
+
+            let decrypted = CryptoJS.DES.decrypt(ciphertext, CryptoJS.enc.Hex.parse(keyHex), {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.NoPadding
+            });
+
+            console.log(decrypted.toString(CryptoJS.enc.Utf8))
+
+            document.getElementById("encrypted").innerHTML = ciphertext
+            document.getElementById("decrypted").innerHTML = decrypted
+            document.getElementById("stringDncrypted").innerHTML = decrypted.toString(CryptoJS.enc.Utf8)
+        }
+    </script>
+</head>
+
+<body>
+
+    <strong><label>Encrypted:</label></strong>
+    <span id="encrypted"></span><br>
+
+    <strong><label>Decrypted:</label></strong>
+    <span id="decrypted"></span><br>
+
+    <strong><label>String after Decryption:</label></strong>
+    <span id="stringDncrypted"></span><br>
+
+    <button type="button" onclick="myFunction()">Try it</button>
+
+    <script src="js/rollups/tripledes.js"></script>
+    <script src="js/components/mode-ecb.js"></script>
+    <script src="js/components/mode-ecb-min.js"></script>
+    <script src="js/components/core.js"></script>
+    <script src="js/components/core-min.js"></script>
+    <script src="js/components/cipher-core.js"></script>
+    <script src="js/components/cipher-core-min.js"></script>
+    <script src="js/components/pad-nopadding.js"></script>
+    <script src="js/components/pad-nopadding-min.js"></script>
+</body>
+
+</html>
